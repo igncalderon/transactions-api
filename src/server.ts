@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import transactionRoutes from './routes/transactions';
 import userRoutes from './routes/users';
 import { errorHandler, notFound } from './middleware/errorHandler';
+import { runMigrations } from './utils/migrate';
 
 dotenv.config();
 
@@ -26,8 +27,25 @@ app.get('/ping', (_, res: Response) => {
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Inicializar base de datos y servidor
+async function startServer() {
+  try {
+    // Ejecutar migraciones
+    await runMigrations();
+    
+    // Iniciar servidor
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`📊 Health check: http://localhost:${PORT}/ping`);
+      console.log(`👥 Users API: http://localhost:${PORT}/api/v1/users`);
+      console.log(`💳 Transactions API: http://localhost:${PORT}/api/v1/transactions`);
+    });
+  } catch (error) {
+    console.error('❌ Failed to start server:', error);
+    process.exit(1);
+  }
+}
+
+startServer();
 
 export default app;
