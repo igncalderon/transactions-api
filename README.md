@@ -2,6 +2,21 @@
 
 API REST para manejo de transacciones entre usuarios con Node.js, Express y TypeScript.
 
+## ⚠️ IMPORTANTE
+
+**Estado actual**: La aplicación está configurada para usar una base de datos en memoria por limitaciones de tiempo. Sin embargo, **la migración completa a PostgreSQL ya está implementada** y lista para usar.
+
+**Migración disponible**: Puedes ver la implementación completa de la base de datos PostgreSQL en el [PR #1](https://github.com/igncalderon/transactions-api/pull/1), que incluye:
+
+- ✅ Configuración completa de PostgreSQL
+- ✅ Scripts de setup de base de datos
+- ✅ Migración de todos los servicios a queries SQL
+- ✅ Tests actualizados para la nueva implementación
+- ✅ Transacciones de base de datos para consistencia de datos
+- ✅ Índices y triggers para optimización
+
+Para activar la versión con base de datos, simplemente cambia a la rama `feature/migrate-to-postgresql` y sigue las instrucciones de setup.
+
 ## 🚀 Características
 
 - **Transacciones automáticas**: Montos ≤ $50,000 se confirman automáticamente
