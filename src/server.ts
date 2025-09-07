@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import transactionRoutes from './routes/transactions';
 import userRoutes from './routes/users';
 import { errorHandler, notFound } from './middleware/errorHandler';
-import { setupDatabase } from './utils/setup';
 
 dotenv.config();
 
@@ -27,20 +26,8 @@ app.get('/ping', (_, res: Response) => {
 app.use(notFound);
 app.use(errorHandler);
 
-// run server
-async function startServer() {
-  try {
-    await setupDatabase();
-    
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  } catch (error) {
-    console.error('❌ Failed to start server:', error);
-    process.exit(1);
-  }
-}
-
-startServer();
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 export default app;
