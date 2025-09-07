@@ -5,7 +5,6 @@ import { ApiResponse, CreateTransactionRequest, UpdateTransactionStatusRequest }
 
 const router = express.Router();
 
-// POST /api/v1/transactions - Create new transaction
 router.post('/', validateTransaction, async (req: Request<{}, ApiResponse, CreateTransactionRequest>, res: Response<ApiResponse>, next: NextFunction) => {
   try {
     const transaction = await transactionService.createTransaction(req.body);
@@ -22,7 +21,6 @@ router.post('/', validateTransaction, async (req: Request<{}, ApiResponse, Creat
   }
 });
 
-// GET /api/v1/transactions - Get all transactions or filter by userId
 router.get('/', async (req: Request, res: Response<ApiResponse>, next: NextFunction) => {
   try {
     const { userId } = req.query as { userId?: string };
@@ -39,7 +37,6 @@ router.get('/', async (req: Request, res: Response<ApiResponse>, next: NextFunct
   }
 });
 
-// GET /api/v1/transactions/:id - Get transaction by ID
 router.get('/:id', async (req: Request, res: Response<ApiResponse>, next: NextFunction) => {
   try {
     const { id } = req.params as { id: string };
@@ -64,7 +61,6 @@ router.get('/:id', async (req: Request, res: Response<ApiResponse>, next: NextFu
   }
 });
 
-// PATCH /api/v1/transactions/:id/approve - Approve pending transaction
 router.patch('/:id/approve', async (req: Request<{ id: string }, ApiResponse>, res: Response<ApiResponse>, next: NextFunction) => {
   try {
     const { id } = req.params;
@@ -90,7 +86,6 @@ router.patch('/:id/approve', async (req: Request<{ id: string }, ApiResponse>, r
   }
 });
 
-// PATCH /api/v1/transactions/:id/reject - Reject pending transaction
 router.patch('/:id/reject', async (req: Request<{ id: string }, ApiResponse>, res: Response<ApiResponse>, next: NextFunction) => {
   try {
     const { id } = req.params;
@@ -116,7 +111,6 @@ router.patch('/:id/reject', async (req: Request<{ id: string }, ApiResponse>, re
   }
 });
 
-// PATCH /api/v1/transactions/:id/status - Update transaction status
 router.patch('/:id/status', async (req: Request<{ id: string }, ApiResponse, UpdateTransactionStatusRequest>, res: Response<ApiResponse>, next: NextFunction) => {
   try {
     const { id } = req.params;
