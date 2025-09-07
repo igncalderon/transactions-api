@@ -33,10 +33,7 @@ async function startServer() {
     await setupDatabase();
     
     app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-      console.log(`📊 Health check: http://localhost:${PORT}/ping`);
-      console.log(`👥 Users API: http://localhost:${PORT}/api/v1/users`);
-      console.log(`💳 Transactions API: http://localhost:${PORT}/api/v1/transactions`);
+      console.log(`Server running on port ${PORT}`);
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error);

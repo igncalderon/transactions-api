@@ -37,11 +37,11 @@ class TransactionService {
     const transaction = result.rows[0];
 
     // congelar el dinero del usuario origen
-    await userService.updateUserBalance(transaction.from_user_id, -transaction.amount);
+    await userService.updateUserBalance(transaction.from_user_id, -parseFloat(transaction.amount));
 
     // Si la transacción se confirma automáticamente, acreditar al destino
     if (status === 'confirmed') {
-      await userService.updateUserBalance(transaction.to_user_id, transaction.amount);
+      await userService.updateUserBalance(transaction.to_user_id, parseFloat(transaction.amount));
     }
 
     return transaction;
@@ -93,7 +93,7 @@ class TransactionService {
       );
 
       // Acreditar al destino (el origen ya tiene el dinero descontado)
-      await userService.updateUserBalance(transaction.to_user_id, transaction.amount);
+      await userService.updateUserBalance(transaction.to_user_id, parseFloat(transaction.amount));
 
       await client.query('COMMIT');
       return updateResult.rows[0];
@@ -131,7 +131,7 @@ class TransactionService {
       );
 
       // Devolver el dinero congelado al usuario origen
-      await userService.updateUserBalance(transaction.from_user_id, transaction.amount);
+      await userService.updateUserBalance(transaction.from_user_id, parseFloat(transaction.amount));
 
       await client.query('COMMIT');
       return updateResult.rows[0];
@@ -170,12 +170,12 @@ class TransactionService {
 
       // Si se confirma, solo acreditar al destino
       if (status === 'confirmed') {
-        await userService.updateUserBalance(transaction.to_user_id, transaction.amount);
+        await userService.updateUserBalance(transaction.to_user_id, parseFloat(transaction.amount));
       }
       
       // Si se rechaza, devolver el dinero al origen
       if (status === 'rejected') {
-        await userService.updateUserBalance(transaction.from_user_id, transaction.amount);
+        await userService.updateUserBalance(transaction.from_user_id, parseFloat(transaction.amount));
       }
 
       await client.query('COMMIT');
