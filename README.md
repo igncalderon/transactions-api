@@ -29,6 +29,7 @@ Para activar la versión con base de datos, simplemente cambia a la rama `featur
 
 - Node.js >= 16.0.0
 - npm
+- PostgreSQL >= 12.0
 
 ## 🛠️ Instalación
 
@@ -40,6 +41,14 @@ cd Transactions-test
 # Instalar dependencias
 npm install
 
+# Configurar PostgreSQL
+# 1. Configurar variables de entorno
+cp env.example .env
+# Editar .env con tus credenciales de PostgreSQL
+
+# 2. Setup completo de la base de datos
+npm run setup
+
 # Ejecutar en modo desarrollo
 npm run dev
 
@@ -50,6 +59,7 @@ npm start
 
 ## 🔧 Scripts disponibles
 
+- `npm run setup` - Configura la base de datos desde cero (recomendado para nuevos desarrolladores)
 - `npm run dev` - Ejecutar en modo desarrollo con hot reload
 - `npm run build` - Compilar TypeScript a JavaScript
 - `npm start` - Ejecutar la aplicación compilada
@@ -310,6 +320,8 @@ src/
 - **Node.js** - Runtime de JavaScript
 - **Express** - Framework web
 - **TypeScript** - Superset tipado de JavaScript
+- **PostgreSQL** - Base de datos relacional
+- **pg** - Cliente PostgreSQL para Node.js
 - **Nodemon** - Hot reload para desarrollo
 - **ts-node** - Ejecutor de TypeScript
 
