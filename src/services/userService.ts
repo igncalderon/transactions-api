@@ -104,7 +104,7 @@ class UserService {
 
   async deleteUser(id: string): Promise<boolean> {
     const result = await pool.query('DELETE FROM users WHERE id = $1', [id]);
-    return result.rowCount > 0;
+    return (result.rowCount ?? 0) > 0;
   }
 
   private generateId(): string {

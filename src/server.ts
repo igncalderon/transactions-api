@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import transactionRoutes from './routes/transactions';
 import userRoutes from './routes/users';
 import { errorHandler, notFound } from './middleware/errorHandler';
-import { runMigrations } from './utils/migrate';
+import { setupDatabase } from './utils/setup';
 
 dotenv.config();
 
@@ -27,13 +27,11 @@ app.get('/ping', (_, res: Response) => {
 app.use(notFound);
 app.use(errorHandler);
 
-// Inicializar base de datos y servidor
+// run server
 async function startServer() {
   try {
-    // Ejecutar migraciones
-    await runMigrations();
+    await setupDatabase();
     
-    // Iniciar servidor
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`📊 Health check: http://localhost:${PORT}/ping`);

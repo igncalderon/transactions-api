@@ -27,15 +27,12 @@ cd Transactions-test
 npm install
 
 # Configurar PostgreSQL
-# 1. Crear base de datos
-createdb transactions_db
-
-# 2. Configurar variables de entorno
+# 1. Configurar variables de entorno
 cp env.example .env
 # Editar .env con tus credenciales de PostgreSQL
 
-# Ejecutar migraciones
-npm run migrate
+# 2. Setup completo de la base de datos
+npm run setup
 
 # Ejecutar en modo desarrollo
 npm run dev
@@ -47,10 +44,10 @@ npm start
 
 ## 🔧 Scripts disponibles
 
+- `npm run setup` - Configura la base de datos desde cero (recomendado para nuevos desarrolladores)
 - `npm run dev` - Ejecutar en modo desarrollo con hot reload
 - `npm run build` - Compilar TypeScript a JavaScript
 - `npm start` - Ejecutar la aplicación compilada
-- `npm run migrate` - Ejecutar migraciones de base de datos
 
 ## 📚 Documentación de la API
 
